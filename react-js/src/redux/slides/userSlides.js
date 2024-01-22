@@ -35,14 +35,14 @@ export const userSlide = createSlice({
         resetUser: (state) => {
             state.name = '';
             state.email = '';
-            state.address = '';
-            state.phone = '';
-            state.avatar = '';
-            state.id = '';
+            // state.address = '';
+            // state.phone = '';
+            // state.avatar = '';
+            // state.id = '';
             state.access_token = '';
-            state.isAdmin = false;
-            state.city = '';
-            state.refreshToken = ''
+            // state.isAdmin = false;
+            // state.city = '';
+            // state.refreshToken = ''
         },
     },
 })

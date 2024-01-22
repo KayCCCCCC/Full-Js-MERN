@@ -7,7 +7,7 @@ export const getDetailsUser = `${host}/user/get-details`
 export const deleteUser = `${host}/user/delete-user`
 export const getAllUser = `${host}/user/getAll`
 export const refreshToken = `${host}/user/refresh-token`
-export const logoutUser = `${host}/user/log-out`
+export const logoutUser = `${host}/user/signout`
 export const updateUser = `${host}/user/update-user`
 export const deleteManyUser = `${host}/user/delete-many`
 

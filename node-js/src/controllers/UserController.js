@@ -170,16 +170,19 @@ class UserController {
 
     static async logoutUser(req, res) {
         try {
-            res.clearCookie('refresh_token')
-            return res.status(200).json({
-                status: 'OK',
-                message: 'Logout successfully'
-            })
-        } catch (e) {
-            return res.status(404).json({
-                message: e
-            })
+            await res.clearCookie("refresh_token", {
+                secure: true,
+                httpOnly: true,
+                sameSite: 'strict',
+            });
+            const token = req.cookies
+            console.log('token', token)
+            return res.status(200).send({ msg: "Logged out" });
+        } catch (error) {
+            console.error("Logout error:", error);
+            return res.status(500).send({ msg: "Logout error" });
         }
     }
+
 }
 exports.UserController = UserController

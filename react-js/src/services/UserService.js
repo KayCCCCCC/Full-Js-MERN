@@ -71,7 +71,7 @@ export const RefreshToken = async () => {
 // }
 
 export const LogoutUser = async () => {
-    const res = await axios.post(`${logoutUser}`, { withCredentials: true })
+    const res = await axios.post(`${logoutUser}`, {}, { withCredentials: true, })
     return res.data
 }
 

@@ -14,5 +14,12 @@ export const deleteManyUser = `${host}/user/delete-many`
 
 //product
 export const getAllProduct = `${host}/product/get-all`
+export const getProductType = `${host}/product/get-all`
+export const createProduct = `${host}/product/create`
+export const getDetailsProduct = `${host}/product/get-details`
+export const updateProduct = `${host}/product/update`
+export const deleteProduct = `${host}/product/delete`
+export const deleteManyProduct = `${host}/product/delete-many`
+export const getAllTypeProduct = `${host}/product/get-all-type`
 
 //order

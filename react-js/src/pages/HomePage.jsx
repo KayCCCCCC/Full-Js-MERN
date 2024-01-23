@@ -6,8 +6,19 @@ import ButtonComponent from "../components/ButtonComponent/ButtonComponent"
 import slider1 from "../assets/img/slider1.webp"
 import slider2 from "../assets/img/slider2.webp"
 import slider3 from "../assets/img/slider3.webp"
+import { useQuery } from "@tanstack/react-query"
+import * as ProductService from "../services/ProductService"
 const HomePage = () => {
     const arr = ['TV', 'Tu Lanh', 'Lap Top']
+
+    const fetAllProduct = async () => {
+        const listPro = await ProductService.GetAllProduct();
+        return listPro
+    }
+    const query = useQuery({ queryKey: ['products'], queryFn: fetAllProduct });
+
+    console.log('check query: ', query);
+
     return (
         <React.Fragment>
             <div className="flex justify-start gap-x-10 border-b border-sky-500 h-11 text-2xl px-32 mt-4">

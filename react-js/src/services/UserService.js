@@ -76,6 +76,7 @@ export const LogoutUser = async () => {
 }
 
 export const UpdateUser = async (id, data, access_token) => {
+    console.log('>> check service: ', data)
     const res = await axiosJWT.put(`${updateUser}/${id}`, data, {
         withCredentials: true,
         headers: {

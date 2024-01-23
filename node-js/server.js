@@ -14,6 +14,9 @@ const port = process.env.PORT || 3000;
 const hostname = process.env.HOST_NAME || 'localhost';
 
 
+app.use(express.json({ limit: '100mb' }));
+app.use(express.urlencoded({ limit: '100mb' }));
+
 // config cors
 app.use(
     cors({

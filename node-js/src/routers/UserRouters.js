@@ -7,7 +7,7 @@ const cors = require("cors");
 router.post('/create', UserController.createUser)
 router.post('/signin', UserController.loginUser)
 router.post('/signout', UserController.logoutUser)
-router.patch('/update-user/:id', authUserMiddleWare, UserController.updateUser)
+router.put('/update-user/:id', authUserMiddleWare, UserController.updateUser)
 router.delete('/delete-user/:id', authMiddleWare, UserController.deleteUser)
 router.get('/getAll', authMiddleWare, UserController.getAllUser)
 router.get('/get-details/:id', authUserMiddleWare, UserController.getDetailsUser)

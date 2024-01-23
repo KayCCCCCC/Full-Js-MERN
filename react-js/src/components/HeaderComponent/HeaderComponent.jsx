@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Badge, Col, Popover, Row } from 'antd';
 import { Input } from 'antd';
 import { useNavigate } from "react-router";
@@ -14,6 +14,8 @@ const { Search } = Input;
 const Header = () => {
     const nagigate = useNavigate();
     const dispatch = useDispatch();
+    const [userName, setUserName] = useState('')
+    const [userAvatar, setUserAvatar] = useState('')
     const [loading, setLoading] = useState(false)
 
     const user = useSelector((state) => state.user)
@@ -33,11 +35,18 @@ const Header = () => {
     }
 
     const content = (
-        <div className="max-w-fit">
-            <p onClick={handleLogout} className="hover:bg-slate-300 hover:text-2xl hover:font-medium p-2 rounded cursor-pointer">Đăng xuất</p>
-            <p className="hover:bg-slate-300 hover:text-2xl hover:font-medium p-2 rounded cursor-pointer">Thông tin người dùng</p>
+        <div className="max-w-96">
+            <p onClick={handleLogout} className="hover:bg-slate-300 hover:text-cyan-500 p-2 rounded cursor-pointer">Đăng xuất</p>
+            <p onClick={() => nagigate('/profile-user')} className="hover:bg-slate-300  hover:text-cyan-500 p-2 rounded cursor-pointer">Thông tin người dùng</p>
         </div>
     );
+
+    useEffect(() => {
+        setLoading(true)
+        setUserName(user?.name)
+        setUserAvatar(user?.avatar)
+        setLoading(false)
+    }, [user?.name, user?.avatar])
 
     return (
         <React.Fragment>
@@ -55,11 +64,21 @@ const Header = () => {
                     <div className="flex gap-x-32 items-center">
                         <Loading isLoading={loading}>
                             <div className="flex gap-x-2">
-                                <UserOutlined className="text-4xl" />
+                                {userAvatar ? (
+                                    <img src={userAvatar} alt="avatar" style={{
+                                        height: '30px',
+                                        width: '30px',
+                                        borderRadius: '50%',
+                                        objectFit: 'cover',
+                                        marginTop: '10px'
+                                    }} />
+                                ) : (
+                                    <UserOutlined style={{ fontSize: '30px' }} />
+                                )}
                                 {user?.name ?
                                     (<React.Fragment>
                                         <Popover content={content} trigger="hover">
-                                            <div className="py-5 text-2xl font-medium">{user?.name}</div>
+                                            <div className="py-5 text-2xl font-medium">{user?.name || user?.email}</div>
                                         </Popover>
                                     </React.Fragment>
                                     ) :

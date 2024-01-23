@@ -23,6 +23,7 @@ const SignInPage = () => {
         mutationFn: data => UserService.LoginUser(data)
     })
     const { data, isPending } = mutation
+    console.log('check mutation singin: ', mutation)
 
     useEffect(() => {
 

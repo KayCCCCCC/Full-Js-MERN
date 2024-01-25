@@ -11,7 +11,8 @@ import Loading from "../LoadingComponent/Loading";
 
 const { Search } = Input;
 
-const Header = () => {
+const Header = ({ isHiddenSearch = false, isHiddenCart = false }) => {
+    console.log(isHiddenCart)
     const nagigate = useNavigate();
     const dispatch = useDispatch();
     const [userName, setUserName] = useState('')
@@ -36,10 +37,17 @@ const Header = () => {
 
     const content = (
         <div className="max-w-96">
-            <p onClick={handleLogout} className="hover:bg-slate-300 hover:text-cyan-500 p-2 rounded cursor-pointer">Đăng xuất</p>
             <p onClick={() => nagigate('/profile-user')} className="hover:bg-slate-300  hover:text-cyan-500 p-2 rounded cursor-pointer">Thông tin người dùng</p>
+            {user?.isAdmin && (
+                <p onClick={() => nagigate('/system/admin')} className="hover:bg-slate-300  hover:text-cyan-500 p-2 rounded cursor-pointer">Quản lí hệ thống</p>
+            )}
+            <p onClick={handleLogout} className="hover:bg-slate-300 hover:text-cyan-500 p-2 rounded cursor-pointer">Đăng xuất</p>
         </div>
     );
+
+    const handleBackHome = () => {
+        nagigate('/')
+    }
 
     useEffect(() => {
         setLoading(true)
@@ -50,17 +58,19 @@ const Header = () => {
 
     return (
         <React.Fragment>
-            <Row>
-                <Col className="bg-blue-500 py-3 text-4xl font-bold text-white flex items-center justify-center" span={6}>MERN</Col>
+            <Row style={{ justifyContent: isHiddenSearch && isHiddenCart ? 'space-between' : 'unset' }}>
+                <Col className="bg-blue-500 py-3 text-4xl font-bold text-white flex items-center justify-center cursor-pointer" onClick={handleBackHome} span={6}>MERN</Col>
                 <Col className="bg-blue-500 py-3" span={12}>
-                    <InputSearchComponent
-                        size="large"
-                        placeholder="Input for search"
-                        textButton="Search"
-                        onChange={onSearch}
-                    />
+                    {!isHiddenSearch && (
+                        <InputSearchComponent
+                            size="large"
+                            placeholder="Input for search"
+                            textButton="Search"
+                            onChange={onSearch}
+                        />
+                    )}
                 </Col>
-                <Col className="bg-blue-500 py-3 px-6 text-white" span={6}>
+                <Col className="bg-blue-500 py-4 px-5 text-white" span={6}>
                     <div className="flex gap-x-32 items-center">
                         <Loading isLoading={loading}>
                             <div className="flex gap-x-2">
@@ -91,12 +101,15 @@ const Header = () => {
                                     </div>}
                             </div>
                         </Loading>
-                        <div className="flex items-center gap-x-2">
-                            <Badge count={4} size="medium">
-                                <ShoppingCartOutlined className="text-5xl" />
-                            </Badge>
-                            <span>Giỏ Hàng</span>
-                        </div>
+                        {!isHiddenCart && (
+                            <div className="flex items-center gap-x-2">
+                                <Badge count={4} size="medium">
+                                    <ShoppingCartOutlined className="text-5xl" />
+                                </Badge>
+                                <span>Giỏ Hàng</span>
+                            </div>
+                        )}
+
                     </div>
                 </Col>
             </Row>

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { routes } from "./routers/index"
 import DefaultComponent from "./components/DefaultComponent/DefaultComponent";
@@ -7,16 +7,20 @@ import { jwtDecode } from "jwt-decode";
 import * as UserService from './services/UserService'
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser, resetUser } from "./redux/slides/userSlides";
+import Loading from "./components/LoadingComponent/Loading";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user)
+  const [isLoading, setIsLoading] = useState(false)
   console.log('>> check user: ', user)
-  useEffect(() => {
-    const { storageData, decoded } = handleDecoded()
-    if (decoded?.id) {
-      handleGetDetailUser(decoded?.id, storageData)
-    }
-  }, [])
+  // useEffect(() => {
+  //   setIsLoading(true)
+  //   const { storageData, decoded } = handleDecoded()
+  //   if (decoded?.id) {
+  //     handleGetDetailUser(decoded?.id, storageData)
+  //   }
+  //   setIsLoading(false)
+  // }, [])
   const handleDecoded = () => {
     let storageData = user?.access_token || localStorage.getItem('access_token')
     let decoded = {}
@@ -54,24 +58,27 @@ function App() {
 
   return (
     <React.Fragment>
-      <Router>
-        <Routes>
-          {routes.map((route, index) => {
-            const Page = route.page
-            const Layout = route.isShowHeader ? DefaultComponent : Fragment
-            return (
-              <Route key={route.path} path={route.path} element={
-                <React.Fragment>
-                  <Layout>
-                    <Page />
-                  </Layout>
-                </React.Fragment>
-              }
-              ></Route>
-            )
-          })}
-        </Routes>
-      </Router>
+      <Loading isLoading={isLoading}>
+        <Router>
+          <Routes>
+            {routes.map((route, index) => {
+              const Page = route.page
+              const isCheckAuth = !route.isPrivate || user.isAdmin
+              const Layout = route.isShowHeader ? DefaultComponent : Fragment
+              return (
+                <Route key={route.path} path={isCheckAuth ? route.path : ''} element={
+                  <React.Fragment>
+                    <Layout>
+                      <Page />
+                    </Layout>
+                  </React.Fragment>
+                }
+                ></Route>
+              )
+            })}
+          </Routes>
+        </Router>
+      </Loading>
     </React.Fragment>
   );
 }

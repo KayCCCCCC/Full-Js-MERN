@@ -6,7 +6,7 @@ export const GetAllProduct = async (search, limit) => {
     if (search?.length > 0) {
         res = await axios.get(`${getAllProduct}?filter=name&filter=${search ? search : 1}&limit=${limit ? limit : 6}`)
     } else {
-        res = await axios.get(`${getAllProduct}?limit=${limit}`)
+        res = await axios.get(`${getAllProduct}?limit=${limit ? limit : 6}`)
     }
     return res.data
 }

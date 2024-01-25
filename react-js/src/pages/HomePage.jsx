@@ -12,12 +12,18 @@ const HomePage = () => {
     const arr = ['TV', 'Tu Lanh', 'Lap Top']
 
     const fetAllProduct = async () => {
-        const listPro = await ProductService.GetAllProduct();
-        return listPro
+        const query = await ProductService.GetAllProduct();
+        return query
     }
-    const query = useQuery({ queryKey: ['products'], queryFn: fetAllProduct });
+    const listPro = useQuery({
+        queryKey: ['products'],
+        queryFn: fetAllProduct,
+        config: {
+            refetchQueries: ['getAllProducts'], // Assuming 'getAllProducts' is the key for the query that fetches all products
+        },
+    });
 
-    console.log('check query: ', query);
+    console.log('check query: ', listPro);
 
     return (
         <React.Fragment>
@@ -34,19 +40,29 @@ const HomePage = () => {
                 <div className="w-[100%] bg-[#efefef] px-0 py-0 h-auto">
                     <SliderComponent arrImages={[slider1, slider2, slider3]} />
                     <div className="mt-5 flex flex-wrap gap-4 w-[100%] px-14">
-                        <CardComponent />
-                        <CardComponent />
-                        <CardComponent />
-                        <CardComponent />
-                        <CardComponent />
-                        <CardComponent />
-                        <CardComponent />
-                        <CardComponent />
+                        {listPro?.data ? (
+                            listPro?.data?.data.map((item) => (
+                                <CardComponent
+                                    key={item._id}
+                                    countInStock={item.countInStock}
+                                    description={item.description}
+                                    image={item.image}
+                                    name={item.name}
+                                    price={item.price}
+                                    rating={item.rating}
+                                    type={item.type}
+                                    selled={item.selled}
+                                    discount={item.discount}
+                                    id={item._id}
+                                />
+                            ))
+                        ) : (
+                            <p>Loading...</p>
+                        )}
                     </div>
                     <div className="flex items-center justify-center m-4">
                         <ButtonComponent className="hover:bg-[rgb(13,92,182)]" children="Xem Thêm" size="large" style={{ border: '1px solid rgb(11,116,229)', color: 'rgb(11,116,229)', width: '240px', height: '38px', borderRadius: '4px', backgroundColor: '#fff' }} />
                     </div>
-                    {/* <Navbar /> */}
                 </div>
 
             </div>

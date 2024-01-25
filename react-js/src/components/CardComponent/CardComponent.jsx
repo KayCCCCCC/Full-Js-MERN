@@ -3,7 +3,9 @@ import { Card, Image } from 'antd';
 import { StarFilled } from '@ant-design/icons'
 import logo from '../../assets/img/logo.png'
 const { Meta } = Card;
-const CardComponent = () => {
+const CardComponent = (props) => {
+    const { countInStock, description, image, name, price, rating, type, discount, selled, id } = props
+    console.log('props: ', props)
     return (
         <React.Fragment>
             <Card
@@ -18,19 +20,19 @@ const CardComponent = () => {
                 <div className="absolute top-0 left-0 w-[35%]">
                     <img src={logo}></img>
                 </div>
-                <div className="font-bold text-2xl leading-4 text-[rgb(56,56,61)]">Iphone</div>
+                <div className="font-bold text-2xl leading-4 text-[rgb(56,56,61)]">{name}</div>
                 <div className="text-2xl flex items-center mt-4 text-[rgb(128,128,137)]">
                     <div className="flex flex-col gap-y-2">
                         <div className="flex flex-row gap-x-2">
                             <span>
-                                <span>4.96</span>
+                                <span>{rating}</span>
                                 <StarFilled style={{ fontSize: '16px', color: 'yellow', marginLeft: '5px' }} />
                             </span>
                             <span> | Da ban 1000+</span>
                         </div>
                         <div className="flex flex-row">
-                            <span className="text-red-500 text-2xl font-medium mr-2">1.000.000</span>
-                            <span className="text-red-500 text-2xl font-medium">-5%</span>
+                            <span className="text-red-500 text-2xl font-medium mr-2">{price}</span>
+                            <span className="text-red-500 text-2xl font-medium">{discount}%</span>
                         </div>
                     </div>
                 </div>

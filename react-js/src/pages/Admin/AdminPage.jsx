@@ -40,7 +40,7 @@ const AdminPage = () => {
     return (
         <React.Fragment>
             <Header isHiddenSearch isHiddenCart />
-            <div className="text-3xl font-bold">Admin Page</div>
+            {/* <div className="text-3xl font-bold">Admin Page</div> */}
             <div style={{ display: 'flex', overflowX: 'hidden' }}>
                 <Menu
                     mode="inline"

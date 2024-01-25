@@ -51,7 +51,7 @@ const TableComponent = (props) => {
                     Xóa tất cả
                 </div>
             )}
-            <button onClick={exportExcel}>Export Excel</button>
+            <button className='bg-green-500 hover:bg-green-700 rounded p-3' onClick={exportExcel}>Export Excel</button>
             <Table
                 rowSelection={{
                     type: selectionType,

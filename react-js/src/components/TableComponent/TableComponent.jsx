@@ -1,4 +1,4 @@
-import { Table } from 'antd';
+import { Table, Modal } from 'antd';
 import React, { useState } from 'react'
 import Loading from '../../components/LoadingComponent/Loading'
 import { Excel } from "antd-table-saveas-excel";
@@ -23,7 +23,17 @@ const TableComponent = (props) => {
         // }),
     };
     const handleDeleteAll = () => {
-        handleDelteMany(rowSelectedKeys)
+        Modal.confirm({
+            title: 'Xác nhận',
+            content: 'Bạn có chắc chắn muốn xóa tất cả?',
+            okText: 'Xác nhận',
+            okType: 'danger',
+            cancelText: 'Hủy',
+            onOk() {
+                handleDelteMany(rowSelectedKeys);
+                setRowSelectedKeys([]);
+            },
+        });
     }
     const exportExcel = () => {
         const excel = new Excel();
@@ -39,19 +49,13 @@ const TableComponent = (props) => {
     return (
         <Loading isLoading={isLoading}>
             {!!rowSelectedKeys.length && (
-                <div style={{
-                    background: '#1d1ddd',
-                    color: '#fff',
-                    fontWeight: 'bold',
-                    padding: '10px',
-                    cursor: 'pointer'
-                }}
+                <div className='bg-blue-700 hover:bg-blue-500 p-2 rounded font-bold text-white cursor-pointer'
                     onClick={handleDeleteAll}
                 >
                     Xóa tất cả
                 </div>
             )}
-            <button className='bg-green-500 hover:bg-green-700 rounded p-3' onClick={exportExcel}>Export Excel</button>
+            <button className='bg-green-500 hover:bg-green-700 rounded p-3 text-white mb-2' onClick={exportExcel}>Export Excel</button>
             <Table
                 rowSelection={{
                     type: selectionType,

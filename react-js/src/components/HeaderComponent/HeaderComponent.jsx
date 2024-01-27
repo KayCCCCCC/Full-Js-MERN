@@ -12,7 +12,7 @@ import Loading from "../LoadingComponent/Loading";
 const { Search } = Input;
 
 const Header = ({ isHiddenSearch = false, isHiddenCart = false }) => {
-    console.log(isHiddenCart)
+    // console.log(isHiddenCart)
     const nagigate = useNavigate();
     const dispatch = useDispatch();
     const [userName, setUserName] = useState('')
@@ -20,7 +20,7 @@ const Header = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     const [loading, setLoading] = useState(false)
 
     const user = useSelector((state) => state.user)
-    console.log('user: ', user)
+    // console.log('user: ', user)
     const onSearch = (value) => {
         console.log('Searched value:', value);
     };

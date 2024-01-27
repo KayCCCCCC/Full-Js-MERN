@@ -31,16 +31,17 @@ export const GetDetailsProduct = async (id) => {
 export const UpdateProduct = async (id, access_token, data) => {
     const res = await axiosJWT.put(`${updateProduct}/${id}`, data, {
         headers: {
-            token: `Bearer ${access_token}`,
+            authorization: `${access_token}`,
         }
     })
+    console.log('check service: ', res)
     return res.data
 }
 
 export const DeleteProduct = async (id, access_token) => {
     const res = await axiosJWT.delete(`${deleteProduct}/${id}`, {
         headers: {
-            token: `Bearer ${access_token}`,
+            authorization: `${access_token}`,
         }
     })
     return res.data
@@ -49,7 +50,7 @@ export const DeleteProduct = async (id, access_token) => {
 export const DeleteManyProduct = async (data, access_token,) => {
     const res = await axiosJWT.post(`${deleteManyProduct}`, data, {
         headers: {
-            token: `Bearer ${access_token}`,
+            authorization: `${access_token}`,
         }
     })
     return res.data

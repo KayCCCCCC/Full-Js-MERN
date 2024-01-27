@@ -33,7 +33,7 @@ export const GetDetailsUser = async (id, access_token) => {
 
 
 export const DeleteUser = async (id, access_token, data) => {
-    const res = await axiosJWT.delete(`${deleteUser}/${id}`, data, {
+    const res = await axiosJWT.delete(`${deleteUser}/${id}`, {
         withCredentials: true,
         headers: {
             'Authorization': `${access_token}`
@@ -76,7 +76,7 @@ export const LogoutUser = async () => {
 }
 
 export const UpdateUser = async (id, data, access_token) => {
-    console.log('>> check service: ', data)
+    // console.log('>> check service: ', data)
     const res = await axiosJWT.put(`${updateUser}/${id}`, data, {
         withCredentials: true,
         headers: {

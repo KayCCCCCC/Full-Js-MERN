@@ -12,7 +12,7 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user)
   const [isLoading, setIsLoading] = useState(false)
-  console.log('>> check user: ', user)
+  // console.log('>> check user: ', user)
   useEffect(() => {
     setIsLoading(true)
     const { storageData, decoded } = handleDecoded()

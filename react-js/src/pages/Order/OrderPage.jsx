@@ -22,6 +22,8 @@ const OrderPage = () => {
     const order = useSelector((state) => state.order)
     const user = useSelector((state) => state.user)
 
+    console.log('user: ', user)
+
     const [listChecked, setListChecked] = useState([])
     const [isOpenModalUpdateInfo, setIsOpenModalUpdateInfo] = useState(false)
     const [stateUserDetails, setStateUserDetails] = useState({
@@ -156,7 +158,7 @@ const OrderPage = () => {
         }
     )
 
-    const { isLoading, data } = mutationUpdate
+    const { isPending, data } = mutationUpdate
 
     const handleCancleUpdate = () => {
         setStateUserDetails({
@@ -203,10 +205,9 @@ const OrderPage = () => {
     return (
         <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
             <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
-                <h3 style={{ fontWeight: 'bold' }}>Giỏ hàng</h3>
+                <div className='text-3xl font-bold p-8'>Giỏ hàng</div>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <WrapperLeft>
-                        <h4>Phí giao hàng</h4>
                         <WrapperStyleHeaderDilivery>
                             <StepComponent items={itemsDelivery} current={diliveryPriceMemo === 10000
                                 ? 2 : diliveryPriceMemo === 20000 ? 1
@@ -242,15 +243,15 @@ const OrderPage = () => {
                                             <span>
                                                 <span style={{ fontSize: '13px', color: '#242424' }}>{convertPrice(order?.price)}</span>
                                             </span>
-                                            <WrapperCountOrder>
+                                            <div className='flex items-center w-fit p-2 border border-solid rounded gap-2'>
                                                 <button style={{ border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => handleChangeCount('decrease', order?.product, order?.amount === 1)}>
                                                     <MinusOutlined style={{ color: '#000', fontSize: '10px' }} />
                                                 </button>
-                                                <WrapperInputNumber defaultValue={order?.amount} value={order?.amount} size="small" min={1} max={order?.countInstock} />
+                                                <WrapperInputNumber readOnly={true} defaultValue={order?.amount} value={order?.amount} size="small" min={1} max={order?.countInstock} />
                                                 <button style={{ border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => handleChangeCount('increase', order?.product, order?.amount === order.countInstock, order?.amount === 1)}>
                                                     <PlusOutlined style={{ color: '#000', fontSize: '10px' }} />
                                                 </button>
-                                            </WrapperCountOrder>
+                                            </div>
                                             <span style={{ color: 'rgb(255, 66, 78)', fontSize: '13px', fontWeight: 500 }}>{convertPrice(order?.price * order?.amount)}</span>
                                             <DeleteOutlined style={{ cursor: 'pointer' }} onClick={() => handleDeleteOrder(order?.product)} />
                                         </div>
@@ -306,8 +307,8 @@ const OrderPage = () => {
                     </WrapperRight>
                 </div>
             </div>
-            <ModalComponent title="Cập nhật thông tin giao hàng" open={isOpenModalUpdateInfo} onCancel={handleCancleUpdate} onOk={handleUpdateInforUser}>
-                <Loading isLoading={isLoading}>
+            <ModalComponent title="Cập nhật thông tin giao hàng" open={isOpenModalUpdateInfo} onCancel={handleCancleUpdate} onOk={handleUpdateInforUser} okButtonProps={{ style: { backgroundColor: "darkcyan", color: "white" } }}>
+                <Loading isLoading={isPending}>
                     <Form
                         name="basic"
                         labelCol={{ span: 4 }}
@@ -335,7 +336,7 @@ const OrderPage = () => {
                             name="phone"
                             rules={[{ required: true, message: 'Please input your  phone!' }]}
                         >
-                            <InputComponent value={stateUserDetails.phone} onChange={handleOnchangeDetails} name="phone" />
+                            <InputComponent value={stateUserDetails['phone']} onChange={handleOnchangeDetails} name="phone" />
                         </Form.Item>
 
                         <Form.Item
@@ -343,7 +344,7 @@ const OrderPage = () => {
                             name="address"
                             rules={[{ required: true, message: 'Please input your  address!' }]}
                         >
-                            <InputComponent value={stateUserDetails.address} onChange={handleOnchangeDetails} name="address" />
+                            <InputComponent value={stateUserDetails['address']} onChange={handleOnchangeDetails} name="address" />
                         </Form.Item>
                     </Form>
                 </Loading>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import InputForm from "../../components/InputFormComponent/InputForm"
 import { Image } from "antd"
-import { useNavigate } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent"
 import logoLogin from "../../assets/img/logo-login.png"
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
@@ -18,6 +18,7 @@ const SignInPage = () => {
     const [isShowPassword, setIsShowPassword] = useState(false)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const location = useLocation();
 
     const mutation = useMutation({
         mutationFn: data => UserService.LoginUser(data)
@@ -26,10 +27,14 @@ const SignInPage = () => {
     console.log('check mutation singin: ', mutation)
 
     useEffect(() => {
-
+        console.log('check location: ', location)
         if (data?.status === 'OK') {
+            if (location?.state) {
+                navigate(location?.state)
+            } else {
+                navigate('/')
+            }
             message.success('Login success')
-            navigate('/')
             localStorage.setItem('access_token', JSON.stringify(data?.access_token))
             if (data?.access_token) {
                 const decoded = jwtDecode(data?.access_token)

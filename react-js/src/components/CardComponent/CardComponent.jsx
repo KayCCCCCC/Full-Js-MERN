@@ -3,6 +3,7 @@ import { Card, Image } from 'antd';
 import { StarFilled } from '@ant-design/icons'
 import logo from '../../assets/img/logo.png'
 import { useNavigate } from "react-router";
+import { convertPrice } from "../../utils/utils";
 const { Meta } = Card;
 const CardComponent = (props) => {
     const { countInStock, description, image, name, price, rating, type, discount, selled, id } = props
@@ -38,7 +39,7 @@ const CardComponent = (props) => {
                             <span> | Da ban 1000+</span>
                         </div>
                         <div className="flex flex-row">
-                            <span className="text-red-500 text-2xl font-medium mr-2">{price}</span>
+                            <span className="text-red-500 text-2xl font-medium mr-2">{convertPrice(price)}</span>
                             <span className="text-red-500 text-2xl font-medium">- {discount}%</span>
                         </div>
                     </div>

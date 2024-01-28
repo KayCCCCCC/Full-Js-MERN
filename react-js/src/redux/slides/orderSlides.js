@@ -3,8 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     orderItems: [],
     orderItemsSlected: [],
-    shippingAddress: {
-    },
+    shippingAddress: {},
     paymentMethod: '',
     itemsPrice: 0,
     shippingPrice: 0,
@@ -23,6 +22,7 @@ export const orderSlide = createSlice({
     initialState,
     reducers: {
         addOrderProduct: (state, action) => {
+            console.log('check redux', { state, action })
             const { orderItem } = action.payload
             const itemOrder = state?.orderItems?.find((item) => item?.product === orderItem.product)
             if (itemOrder) {

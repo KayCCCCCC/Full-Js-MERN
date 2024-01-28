@@ -19,7 +19,7 @@ const Header = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     const [userAvatar, setUserAvatar] = useState('')
     const [loading, setLoading] = useState(false)
     const [search, setSearch] = useState('')
-
+    const order = useSelector((state) => state.order)
     const user = useSelector((state) => state.user)
     // console.log('user: ', user)
     const onSearch = (e) => {
@@ -106,7 +106,7 @@ const Header = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                         </Loading>
                         {!isHiddenCart && (
                             <div onClick={() => navigate('/order')} className="flex items-center gap-x-2 cursor-pointer">
-                                <Badge count={4} size="medium">
+                                <Badge count={order?.orderItems?.length} size="medium">
                                     <ShoppingCartOutlined className="text-5xl" />
                                 </Badge>
                                 <span>Giỏ Hàng</span>

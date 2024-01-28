@@ -49,13 +49,6 @@ export const WrapperPriceDiscount = styled.span`
   text-decoration: line-through;
   margin-left: 4px;
 `
-export const WrapperCountOrder = styled.div`
-  display: flex;
-  align-items: center;
-  width: 84px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`
 
 export const WrapperRight = styled.div`
   width: 320px;

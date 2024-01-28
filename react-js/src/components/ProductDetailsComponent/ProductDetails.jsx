@@ -19,7 +19,7 @@ import CommentComponent from '../CommentComponent/CommentComponent'
 import { useMemo } from 'react'
 
 const ProductDetailsComponent = ({ idProduct }) => {
-    console.log('idProduct', idProduct)
+    // console.log('idProduct', idProduct)
     const [numProduct, setNumProduct] = useState(1)
     const user = useSelector((state) => state.user)
     const order = useSelector((state) => state.order)
@@ -81,7 +81,7 @@ const ProductDetailsComponent = ({ idProduct }) => {
         config: { enabled: !!idProduct },
     });
 
-    console.log('productDetails: ', productDetails)
+    // console.log('productDetails: ', productDetails)
 
     const handleAddOrderProduct = () => {
         if (!user?.id) {
@@ -174,7 +174,7 @@ const ProductDetailsComponent = ({ idProduct }) => {
                             <button style={{ border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => handleChangeCount('decrease', numProduct === 1)}>
                                 <MinusOutlined style={{ color: '#000', fontSize: '20px' }} />
                             </button>
-                            <WrapperInputNumber onChange={onChange} defaultValue={1} max={productDetails?.countInStock} min={1} value={numProduct} size="small" />
+                            <WrapperInputNumber readOnly={true} onChange={onChange} defaultValue={1} max={productDetails?.countInStock} min={1} value={numProduct} size="small" />
                             <button style={{ border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => handleChangeCount('increase', numProduct === productDetails?.countInStock)}>
                                 <PlusOutlined style={{ color: '#000', fontSize: '20px' }} />
                             </button>

@@ -8,8 +8,8 @@ const ButtonInputComponent = (props) => {
     return (
         <React.Fragment>
             <div className="flex items-center mt-2 justify-center" style={{ backgroundColor: "#fff" }}>
-                <InputComponent size={size} placeholder={placeholder} variant={'borderless'} />
-                <ButtonComponent className="border-none" size={size} style={{ backgroundColor: "#fff" }} icon={<SearchOutlined />}>{textButton}</ButtonComponent>
+                <InputComponent size={size} placeholder={placeholder} variant={'borderless'} {...props} />
+                <ButtonComponent className="border-none" size={size} style={{ backgroundColor: "#fff" }} icon={<SearchOutlined />} {...props}>{textButton}</ButtonComponent>
             </div>
         </React.Fragment >
     )

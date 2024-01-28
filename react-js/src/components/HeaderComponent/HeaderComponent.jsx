@@ -8,24 +8,27 @@ import { useDispatch, useSelector } from "react-redux";
 import * as UserService from '../../services/UserService'
 import { updateUser, resetUser } from '../../redux//slides/userSlides'
 import Loading from "../LoadingComponent/Loading";
+import { searchProduct } from "../../redux/slides/productSlides";
 
-const { Search } = Input;
 
 const Header = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     // console.log(isHiddenCart)
-    const nagigate = useNavigate();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [userName, setUserName] = useState('')
     const [userAvatar, setUserAvatar] = useState('')
     const [loading, setLoading] = useState(false)
+    const [search, setSearch] = useState('')
 
     const user = useSelector((state) => state.user)
     // console.log('user: ', user)
-    const onSearch = (value) => {
-        console.log('Searched value:', value);
+    const onSearch = (e) => {
+        console.log('Searched value:', e.target.value);
+        setSearch(e.target.value)
+        dispatch(searchProduct(e.target.value))
     };
     const handleNavigateLogin = () => {
-        nagigate('/signin')
+        navigate('/signin')
     }
 
     const handleLogout = async () => {
@@ -37,16 +40,16 @@ const Header = ({ isHiddenSearch = false, isHiddenCart = false }) => {
 
     const content = (
         <div className="max-w-96">
-            <p onClick={() => nagigate('/profile-user')} className="hover:bg-slate-300  hover:text-cyan-500 p-2 rounded cursor-pointer">Thông tin người dùng</p>
+            <p onClick={() => navigate('/profile-user')} className="hover:bg-slate-300  hover:text-cyan-500 p-2 rounded cursor-pointer">Thông tin người dùng</p>
             {user?.isAdmin && (
-                <p onClick={() => nagigate('/system/admin')} className="hover:bg-slate-300  hover:text-cyan-500 p-2 rounded cursor-pointer">Quản lí hệ thống</p>
+                <p onClick={() => navigate('/system/admin')} className="hover:bg-slate-300  hover:text-cyan-500 p-2 rounded cursor-pointer">Quản lí hệ thống</p>
             )}
             <p onClick={handleLogout} className="hover:bg-slate-300 hover:text-cyan-500 p-2 rounded cursor-pointer">Đăng xuất</p>
         </div>
     );
 
     const handleBackHome = () => {
-        nagigate('/')
+        navigate('/')
     }
 
     useEffect(() => {
@@ -102,7 +105,7 @@ const Header = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                             </div>
                         </Loading>
                         {!isHiddenCart && (
-                            <div className="flex items-center gap-x-2">
+                            <div onClick={() => navigate('/order')} className="flex items-center gap-x-2 cursor-pointer">
                                 <Badge count={4} size="medium">
                                     <ShoppingCartOutlined className="text-5xl" />
                                 </Badge>

@@ -25,6 +25,7 @@ export const CreateProduct = async (data) => {
 
 export const GetDetailsProduct = async (id) => {
     const res = await axios.get(`${getDetailsProduct}/${id}`)
+    console.log('res: ', res)
     return res.data
 }
 

@@ -60,16 +60,16 @@ const Navbar = () => {
                     {renderContent('text', ['Tu Lanh', 'TV', 'May Giat'])}
                 </div>
                 <div className="flex flex-col gap-3">
-                    {renderContent('checkbox', [
+                    {/* {renderContent('checkbox', [
                         { value: 'a', label: 'A' },
                         { value: 'b', label: 'B' },
-                    ])}
+                    ])} */}
                 </div>
                 <div className="flex flex-col gap-3">
-                    {renderContent('star', [3, 4, 5])}
+                    {/* {renderContent('star', [3, 4, 5])} */}
                 </div>
                 <div className="flex flex-col gap-3">
-                    {renderContent('price', ['duoi 40', 'tren 50.000'])}
+                    {/* {renderContent('price', ['duoi 40', 'tren 50.000'])} */}
                 </div>
             </div>
         </React.Fragment>

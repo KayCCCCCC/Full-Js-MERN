@@ -54,8 +54,8 @@ class UserController {
                 sameSite: 'strict',
                 path: '/',
             })
-            // return res.status(200).json({ ...newReponse, refresh_token })
-            return res.status(200).json({ ...newReponse })
+            return res.status(200).json({ ...newReponse, refresh_token })
+            // return res.status(200).json({ ...newReponse })
         } catch (e) {
             return res.status(500).json({
                 message: e

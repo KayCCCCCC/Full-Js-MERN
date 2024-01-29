@@ -19,7 +19,7 @@ const HomePage = () => {
     const refSearch = useRef()
     const [stateProduct, setStateProduct] = useState([])
     const [loading, setLoading] = useState(false)
-    const [limit, setLimit] = useState(6)
+    const [limit, setLimit] = useState(5)
     const [typeProducts, setTypeProducts] = useState([])
     const arr = ['TV', 'Tu Lanh', 'Lap Top']
 
@@ -50,6 +50,18 @@ const HomePage = () => {
         fetchAllTypeProduct()
     }, [])
 
+    // const { isLoading, data: products, isPreviousData } = useQuery({
+    //     queryKey: ['products', limit, searchDebounce],
+    //     queryFn: fetAllProduct,
+    //     retry: 3, // Số lần retry khi gặp lỗi
+    //     retryDelay: 1000, // Thời gian chờ giữa các lần retry (miligiây)
+    //     keepPreviousData: true,
+    //     onError: (error) => {
+    //         // Xử lý lỗi và quyết định liệu nên retry hay không
+    //         // return true để thực hiện retry, return false để dừng
+    //         return true;
+    //     },
+    // });
     const { isLoading, data: products, isPreviousData } = useQuery({
         queryKey: ['products', limit, searchDebounce],
         queryFn: fetAllProduct,
@@ -62,6 +74,8 @@ const HomePage = () => {
             return true;
         },
     });
+
+    console.log('products', products)
 
     // set all product
     // useEffect(() => {
@@ -111,7 +125,7 @@ const HomePage = () => {
                                     border: `1px solid ${products?.total === products?.data?.length ? '#f5f5f5' : '#9255FD'}`, color: `${products?.total === products?.data?.length ? '#f5f5f5' : '#9255FD'}`,
                                     width: '240px', height: '38px', borderRadius: '4px'
                                 }}
-                                onClick={() => setLimit((prev) => prev + 6)}
+                                onClick={() => setLimit((prev) => prev + 5)}
                             />
                         </div>
                     </div>

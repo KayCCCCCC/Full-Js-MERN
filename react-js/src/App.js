@@ -34,16 +34,17 @@ function App() {
     // Do something before request is sent
     const currentTime = new Date()
     const { decoded, storageData } = handleDecoded()
-    // let storageRefreshToken = localStorage.getItem('refresh_token')
-    // const refreshToken = JSON.parse(storageRefreshToken)
-    // const decodedRefreshToken = jwtDecode(refreshToken)
+    let storageRefreshToken = localStorage.getItem('refresh_token')
+    const refreshToken = JSON.parse(storageRefreshToken)
+    // console.log('storageRefreshToken', refreshToken)
+    const decodedRefreshToken = jwtDecode(refreshToken)
     if (decoded?.exp < currentTime.getTime() / 1000) {
-      // if (decodedRefreshToken?.exp > currentTime.getTime() / 1000) {
-      const data = await UserService.RefreshToken()
-      config.headers['Authorization'] = `${data?.access_token}`
-      // } else {
-      //   dispatch(resetUser())
-      // }
+      if (decodedRefreshToken?.exp > currentTime.getTime() / 1000) {
+        const data = await UserService.RefreshToken()
+        config.headers['Authorization'] = `${data?.access_token}`
+      } else {
+        dispatch(resetUser())
+      }
     }
     return config;
   }, (err) => {

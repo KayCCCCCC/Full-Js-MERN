@@ -19,11 +19,13 @@ const CardComponent = (props) => {
                 headStyle={{ width: '200px', height: '200px', position: 'relative' }}
                 style={{
                     width: '240px',
-                    height: '300px'
+                    cursor: countInStock === 0 ? 'not-allowed' : 'pointer',
+                    backgroundColor: countInStock === 0 ? '#cbd5e0' : '', // Change to the desired gray color
                 }}
                 bodyStyle={{ padding: '17px' }}
                 cover={<img className="h-full w-full" alt="example" src={image} />}
-                onClick={() => handleDetailsProduct(id)}
+                onClick={() => countInStock !== 0 && handleDetailsProduct(id)}
+                disabled={countInStock === 0}
             >
                 <div className="absolute top-0 left-0 w-[35%]">
                     <img src={logo}></img>
@@ -36,7 +38,7 @@ const CardComponent = (props) => {
                                 <span>{rating}</span>
                                 <StarFilled style={{ fontSize: '16px', color: 'yellow', marginLeft: '5px' }} />
                             </span>
-                            <span> | Da ban 1000+</span>
+                            <span> | Da ban {selled || 10}+</span>
                         </div>
                         <div className="flex flex-row">
                             <span className="text-red-500 text-2xl font-medium mr-2">{convertPrice(price)}</span>

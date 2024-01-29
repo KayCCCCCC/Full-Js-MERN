@@ -81,6 +81,8 @@ const ProductDetailsComponent = ({ idProduct }) => {
         config: { enabled: !!idProduct },
     });
 
+    console.log('productDetails', productDetails)
+
     // console.log('productDetails: ', productDetails)
 
     const handleAddOrderProduct = () => {
@@ -99,6 +101,9 @@ const ProductDetailsComponent = ({ idProduct }) => {
             //     },
             // },
             const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
+            // console.log('orderRedux', orderRedux)
+            // console.log('productDetails?.discount', productDetails?.discount)
+            // console.log('productDetails?.countInStock', productDetails?.countInStock)
             if ((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
                 dispatch(addOrderProduct({
                     orderItem: {
@@ -163,7 +168,7 @@ const ProductDetailsComponent = ({ idProduct }) => {
                         <span className='change-address'> Đổi địa chỉ</span>
                     </WrapperAddressProduct>
                     <LikeButtonComponent
-                        dataHref={process.env.REACT_APP_IS_LOCAL
+                        dataHref={'https://developers.facebook.com/docs/plugins/'
                             ? "https://developers.facebook.com/docs/plugins/"
                             : window.location.href
                         }
@@ -212,7 +217,7 @@ const ProductDetailsComponent = ({ idProduct }) => {
                     </div>
                 </Col>
                 <CommentComponent
-                    dataHref={process.env.REACT_APP_IS_LOCAL
+                    dataHref={'https://developers.facebook.com/docs/plugins/'
                         ? "https://developers.facebook.com/docs/plugins/comments#configurator"
                         : window.location.href
                     }

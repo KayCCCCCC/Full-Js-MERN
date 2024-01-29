@@ -8,6 +8,10 @@ import SignUpPage from "../pages/SignUp/SignUpPage"
 import NotFoundPage from "../pages/NotfoundPage"
 import ProfilePage from "../pages/Profile/ProfilePage"
 import AdminPage from './../pages/Admin/AdminPage';
+import PaymentPage from "../pages/Payment/PaymentPage"
+import OrderSucess from "../pages/OrderSuccess/OrderSuccess"
+import MyOrderPage from "../pages/MyOrder/MyOrderPage"
+import DetailsOrderPage from "../pages/DetailOrderPage/DetailOrderPage"
 export const routes = [
     {
         path: '/',
@@ -19,26 +23,26 @@ export const routes = [
         page: OrderPage,
         isShowHeader: true
     },
-    // {
-    //     path: '/my-order',
-    //     page: MyOrderPage,
-    //     isShowHeader: true
-    // },
-    // {
-    //     path: '/details-order/:id',
-    //     page: DetailsOrderPage,
-    //     isShowHeader: true
-    // },
-    // {
-    //     path: '/payment',
-    //     page: PaymentPage,
-    //     isShowHeader: true
-    // },
-    // {
-    //     path: '/orderSuccess',
-    //     page: OrderSucess,
-    //     isShowHeader: true
-    // },
+    {
+        path: '/my-order',
+        page: MyOrderPage,
+        isShowHeader: true
+    },
+    {
+        path: '/details-order/:id',
+        page: DetailsOrderPage,
+        isShowHeader: true
+    },
+    {
+        path: '/payment',
+        page: PaymentPage,
+        isShowHeader: true
+    },
+    {
+        path: '/orderSuccess',
+        page: OrderSucess,
+        isShowHeader: true
+    },
     {
         path: '/products',
         page: ProductPage,
@@ -50,12 +54,12 @@ export const routes = [
         isShowHeader: true
     },
     {
-        path: '/sign-in',
+        path: '/signin',
         page: SignInPage,
         isShowHeader: false
     },
     {
-        path: '/sign-up',
+        path: '/signup',
         page: SignUpPage,
         isShowHeader: false
     },

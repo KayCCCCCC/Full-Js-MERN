@@ -1,4 +1,4 @@
-import { Button, Form, Modal, Select, Space, Upload } from 'antd'
+import { Button, Form, Modal, Pagination, Select, Space, Upload } from 'antd'
 import { PlusOutlined, DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons'
 import React, { useRef } from 'react'
 import TableComponent from '../TableComponent/TableComponent'
@@ -25,6 +25,9 @@ const AdminProduct = () => {
     const [isLoadingUpdate, setIsLoadingUpdate] = useState(false)
     const [isModalOpenDelete, setIsModalOpenDelete] = useState(false)
     const [isModalOpenDeleteMany, setIsModalOpenDeleteMany] = useState(false)
+    const [page, setPage] = useState(0);
+    const [searh, setSearch] = useState('');
+    const [limit, setLimit] = useState(5);
     const searchInput = useRef(null);
     const inittial = () => ({
         name: '',
@@ -42,9 +45,10 @@ const AdminProduct = () => {
 
     // fetch data product
     const getAllProducts = async () => {
-        const res = await ProductService.GetAllProduct()
+        const res = await ProductService.GetAllProduct(searh, limit, page)
         return res
     }
+
     const fetchAllTypeProduct = async () => {
         const res = await ProductService.GetAllTypeProduct()
         return res
@@ -54,6 +58,12 @@ const AdminProduct = () => {
 
     const queryProduct = useQuery({ queryKey: ['products'], queryFn: getAllProducts })
     const { isLoading: isLoadingProducts, data: products } = queryProduct
+
+    console.log('getAllProducts', products)
+
+    useEffect(() => {
+        queryProduct.refetch();
+    }, [page, limit, searh])
 
     const typeProduct = useQuery({ queryKey: ['type-product'], queryFn: fetchAllTypeProduct })
 
@@ -285,7 +295,7 @@ const AdminProduct = () => {
     }
 
     const onUpdateProduct = () => {
-        console.log('check: ', stateProductDetails)
+        console.log('check stateProductDetails: ', stateProductDetails)
         const params = {
             id: rowSelected,
             token: user?.access_token,
@@ -525,14 +535,26 @@ const AdminProduct = () => {
                 <Button style={{ height: '150px', width: '150px', borderRadius: '6px', borderStyle: 'dashed' }} onClick={showModal}><PlusOutlined style={{ fontSize: '60px' }} /></Button>
             </div>
             <div className='mt-5'>
-                <TableComponent handleDelteMany={handleDelteManyProducts} columns={columns} isLoading={isLoadingProducts} data={dataTable} onRow={(record, rowIndex) => {
-                    return {
-                        onClick: event => {
-                            setRowSelected(record?._id)
-                            console.log('check record: ', record?.name)
+                <TableComponent
+                    handleDelteMany={handleDelteManyProducts}
+                    columns={columns}
+                    isLoading={isLoadingProducts}
+                    data={dataTable}
+                    onRow={(record, rowIndex) => {
+                        return {
+                            onClick: event => {
+                                setRowSelected(record?._id)
+                                console.log('check record: ', record?.name)
+                            }
+                        };
+                    }}
+                    pagination={{
+                        pageSize: 5,
+                        total: products?.total,
+                        onChange: async (page) => {
+                            await setPage(page - 1)
                         }
-                    };
-                }}
+                    }}
                 />
             </div>
             <ModalComponent

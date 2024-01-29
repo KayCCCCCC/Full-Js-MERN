@@ -1,12 +1,13 @@
 import axios from "axios"
 import { axiosJWT } from "./UserService"
 import { getAllProduct, getProductType, getDetailsProduct, createProduct, updateProduct, deleteProduct, deleteManyProduct, getAllTypeProduct } from "../utils/apiRoutes"
-export const GetAllProduct = async (search, limit) => {
+export const GetAllProduct = async (search, limit, page) => {
+    console.log('>>> check page', page)
     let res = {}
     if (search?.length > 0) {
-        res = await axios.get(`${getAllProduct}?filter=name&filter=${search ? search : 1}&limit=${limit ? limit : 6}`)
+        res = await axios.get(`${getAllProduct}?filter=name&filter=${search}&limit=${limit}&page=${page}`)
     } else {
-        res = await axios.get(`${getAllProduct}?limit=${limit ? limit : 6}`)
+        res = await axios.get(`${getAllProduct}?limit=${limit}&page=${page}`)
     }
     return res.data
 }

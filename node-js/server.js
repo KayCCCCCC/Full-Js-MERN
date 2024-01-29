@@ -14,9 +14,6 @@ const port = process.env.PORT || 3000;
 const hostname = process.env.HOST_NAME || 'localhost';
 
 
-app.use(express.json({ limit: '100mb' }));
-app.use(express.urlencoded({ limit: '100mb' }));
-
 // config cors
 app.use(
     cors({
@@ -27,9 +24,12 @@ app.use(
 );
 app.use(cookies());
 
-app.use(bodyParser.json());
+
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb' }));
 
 // Parse URL-encoded form data
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // config routes

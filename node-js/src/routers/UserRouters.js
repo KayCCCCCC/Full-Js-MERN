@@ -10,7 +10,7 @@ router.post('/signout', UserController.logoutUser)
 router.put('/update-user/:id', authUserMiddleWare, UserController.updateUser)
 router.delete('/delete-user/:id', authMiddleWare, UserController.deleteUser)
 router.get('/getAll', authMiddleWare, UserController.getAllUser)
-router.get('/get-details/:id', authUserMiddleWare, UserController.getDetailsUser)
+router.get('/get-details/:id', authMiddleWare, UserController.getDetailsUser)
 router.post('/refresh-token', UserController.refreshToken)
 router.post('/delete-many', authMiddleWare, UserController.deleteMany)
 

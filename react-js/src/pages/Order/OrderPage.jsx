@@ -105,14 +105,25 @@ const OrderPage = () => {
 
     const priceDiscountMemo = useMemo(() => {
         const result = order?.orderItemsSlected?.reduce((total, cur) => {
-            const totalDiscount = cur.discount ? cur.discount : 0
-            return total + (priceMemo * (totalDiscount * cur.amount) / 100)
-        }, 0)
-        if (Number(result)) {
-            return result
+            // console.log('order?.orderItemsSlected?', order?.orderItemsSlected)
+            const totalDiscount = cur.discount ? cur.discount : 0;
+            // console.log('priceDiscountMemo: ', totalDiscount);
+            // console.log('total: ', total);
+            // console.log('priceMemo: ', priceMemo);
+            // console.log('totalDiscount: ', totalDiscount);
+            // console.log('cur.amount: ', cur.amount);
+            // console.log('cur.discount: ', cur.discount);
+            // console.log('cur: ', cur);
+            return total + ((cur.price * cur.amount * totalDiscount) / 100);
+        }, 0);
+        console.log('result: ', result);
+
+        if (!isNaN(result)) {
+            return result;
         }
-        return 0
-    }, [order])
+
+        return 0;
+    }, [order, priceMemo]);
 
     const diliveryPriceMemo = useMemo(() => {
         if (priceMemo >= 20000 && priceMemo < 500000) {
@@ -211,7 +222,8 @@ const OrderPage = () => {
                         <WrapperStyleHeaderDilivery>
                             <StepComponent items={itemsDelivery} current={diliveryPriceMemo === 10000
                                 ? 2 : diliveryPriceMemo === 20000 ? 1
-                                    : order.orderItemsSlected.length === 0 ? 0 : 3} />
+                                    : order.orderItemsSlected.length === 0 ? 0 : 3}
+                            />
                         </WrapperStyleHeaderDilivery>
                         <WrapperStyleHeader>
                             <span style={{ display: 'inline-block', width: '390px' }}>

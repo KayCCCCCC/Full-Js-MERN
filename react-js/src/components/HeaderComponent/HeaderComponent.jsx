@@ -44,6 +44,7 @@ const Header = ({ isHiddenSearch = false, isHiddenCart = false }) => {
             {user?.isAdmin && (
                 <p onClick={() => navigate('/system/admin')} className="hover:bg-slate-300  hover:text-cyan-500 p-2 rounded cursor-pointer">Quản lí hệ thống</p>
             )}
+            <p onClick={() => navigate('/my-order', { state: { id: user?.id, token: user?.access_token } })} className="hover:bg-slate-300 hover:text-cyan-500 p-2 rounded cursor-pointer">Đơn hàng của tôi</p>
             <p onClick={handleLogout} className="hover:bg-slate-300 hover:text-cyan-500 p-2 rounded cursor-pointer">Đăng xuất</p>
         </div>
     );

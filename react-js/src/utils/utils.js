@@ -60,7 +60,7 @@ export const initFacebookSDK = () => {
     let locale = "vi_VN";
     window.fbAsyncInit = function () {
         window.FB.init({
-            appId: process.env.REACT_APP_FB_ID,// You App ID
+            appId: process.env.REACT_APP_FB_ID || "918994909748432",// You App ID
             cookie: true, // enable cookies to allow the server to access
             // the session
             xfbml: true, // parse social plugins on this page

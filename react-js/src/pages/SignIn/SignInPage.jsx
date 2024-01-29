@@ -36,6 +36,7 @@ const SignInPage = () => {
             }
             message.success('Login success')
             localStorage.setItem('access_token', JSON.stringify(data?.access_token))
+            localStorage.setItem('refresh_token', JSON.stringify(data?.refresh_token))
             if (data?.access_token) {
                 const decoded = jwtDecode(data?.access_token)
                 console.log('>>> decode: ', decoded)

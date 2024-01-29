@@ -29,10 +29,26 @@ const sendEmailCreateOrder = async (email, orderItems) => {
     // send mail with defined transport object
     let info = await transporter.sendMail({
         from: process.env.MAIL_ACCOUNT, // sender address
-        to: email, // list of receivers
+        to: 'nguyenngothanhnha2003kg@gmail.com', // list of receivers
         subject: "Bạn đã đặt hàng tại shop LẬP trình thật dễ", // Subject line
-        text: "Hello world?", // plain text body
-        html: `<div><b>Bạn đã đặt hàng thành công tại shop Lập trình thật dễ</b></div> ${listItem}`,
+        html: `
+        <div
+        style="max-width: 400px; margin: 50px auto; padding: 30px; text-align: center; font-size: 120%; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); position: relative;">
+    
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRDn7YDq7gsgIdHOEP2_Mng6Ym3OzmvfUQvQ&usqp=CAU"
+            alt="Noto Image" style="max-width: 100px; height: auto; display: block; margin: 0 auto; border-radius: 50%;">
+    
+        <h2 style="text-transform: uppercase; color: #3498db; margin-top: 20px; font-size: 28px; font-weight: bold;">
+            Welcome to MERN</h2>
+    
+        <div style="font-size: 18px; color: #555; margin-bottom: 30px;">
+            Sản phẩm của bạn: <span style="font-weight: bold; color: #e74c3c;">${listItem}</span>
+        </div>
+    
+        <p style="color: #888; font-size: 14px;">Powered by MERN</p>
+    
+    </div>
+            `,
         attachments: attachImage,
     });
 }

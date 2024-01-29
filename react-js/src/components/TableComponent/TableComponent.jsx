@@ -46,6 +46,13 @@ const TableComponent = (props) => {
             .saveAs("Excel.xlsx");
     };
 
+    const handleTableChange = (pagination, filters, sorter) => {
+        // Handle table pagination change here if needed
+        // console.log('pagination', pagination);
+        // console.log('filters', filters);
+        // console.log('sorter', sorter);
+    };
+
     return (
         <Loading isLoading={isLoading}>
             {!!rowSelectedKeys.length && (
@@ -63,6 +70,7 @@ const TableComponent = (props) => {
                 }}
                 columns={columns}
                 dataSource={dataSource}
+                onChange={handleTableChange}
                 {...props}
             />
         </Loading>

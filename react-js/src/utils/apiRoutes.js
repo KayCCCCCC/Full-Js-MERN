@@ -23,3 +23,17 @@ export const deleteManyProduct = `${host}/product/delete-many`
 export const getAllTypeProduct = `${host}/product/get-all-type`
 
 //order
+// router.post('/create/:id', authUserMiddleWare, OrderController.createOrder)
+// router.get('/get-all-order/:id', authUserMiddleWare, OrderController.getAllOrderDetails)
+// router.get('/get-details-order/:id', OrderController.getDetailsOrder)
+// router.delete('/cancel-order/:id', authUserMiddleWare, OrderController.cancelOrderDetails)
+// router.get('/get-all-order', authMiddleWare, OrderController.getAllOrder)
+
+export const getAllOrder = `${host}/order/get-all-order`
+export const getAllOrderDetails = `${host}/order/get-all-order`
+export const createOrder = `${host}/order/create`
+export const getDetailsOrder = `${host}/order/get-details-order`
+export const cancelOrder = `${host}/order/cancel-order`
+
+// payment
+export const payment = `${host}/payment/config`

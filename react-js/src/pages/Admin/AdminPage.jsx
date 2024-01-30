@@ -6,6 +6,7 @@ import { Menu } from "antd";
 import Header from "../../components/HeaderComponent/HeaderComponent";
 import AdminUser from "../../components/AdminUser/AdminUser";
 import AdminProduct from "../../components/AdminProduct/AdminProduct";
+import AdminOrder from "../../components/AdminOrder/AdminOrder";
 const AdminPage = () => {
     const user = useSelector((state) => state?.user)
     const [keySelected, setKeySelected] = useState('');
@@ -30,8 +31,7 @@ const AdminPage = () => {
                 )
             case 'orders':
                 return (
-                    //   <OrderAdmin />
-                    <div></div>
+                    <AdminOrder />
                 )
             default:
                 return <></>

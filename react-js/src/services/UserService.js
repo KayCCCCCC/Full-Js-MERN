@@ -42,14 +42,26 @@ export const DeleteUser = async (id, access_token, data) => {
     return res.data
 }
 
-export const GetAllUser = async (access_token) => {
-    const res = await axiosJWT.get(`${getAllUser}`, {
-        withCredentials: true,
-        headers: {
-            'Authorization': `${access_token}`
-        }
-    },)
-    return res.data
+export const GetAllUser = async (access_token, search, page, limit) => {
+    let res = {}
+    if (search?.length > 0) {
+        res = await axiosJWT.get(`${getAllUser}?filter=name&filter=${search}&limit=${limit}&page=${page}`, {
+            withCredentials: true,
+            headers: {
+                'Authorization': `${access_token}`
+            }
+        },)
+        return res.data
+    } else {
+        res = await axiosJWT.get(`${getAllUser}?limit=${limit}&page=${page}`, {
+            withCredentials: true,
+            headers: {
+                'Authorization': `${access_token}`
+            }
+        },)
+        return res.data
+    }
+
 }
 
 export const RefreshToken = async () => {

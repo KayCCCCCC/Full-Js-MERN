@@ -23,9 +23,12 @@ const AdminUser = () => {
     const [isModalOpenDelete, setIsModalOpenDelete] = useState(false)
     const user = useSelector((state) => state?.user)
     const searchInput = useRef(null);
+    const [page, setPage] = useState(0);
+    const [search, setSearch] = useState('');
+    const [limit, setLimit] = useState(5);
 
     const getAllUser = async () => {
-        const res = await UserService.GetAllUser(user?.access_token)
+        const res = await UserService.GetAllUser(user?.access_token, search, page, limit)
         return res
     }
 
@@ -378,13 +381,25 @@ const AdminUser = () => {
             <div className='font-bold text-3xl'>Quản lý người dùng</div>
             <Loading isLoading={isLoadingUsers}>
                 <div style={{ marginTop: '20px' }}>
-                    <TableComponent handleDelteMany={handleDelteManyUsers} columns={columns} isLoading={isLoadingUsers} data={dataTable} onRow={(record, rowIndex) => {
-                        return {
-                            onClick: event => {
-                                setRowSelected(record._id)
+                    <TableComponent
+                        handleDelteMany={handleDelteManyUsers}
+                        columns={columns}
+                        isLoading={isLoadingUsers} data={dataTable}
+                        onRow={(record, rowIndex) => {
+                            return {
+                                onClick: event => {
+                                    setRowSelected(record._id)
+                                }
+                            };
+                        }}
+                        pagination={{
+                            pageSize: 5,
+                            total: users?.total,
+                            onChange: async (page) => {
+                                await setPage(page - 1)
                             }
-                        };
-                    }} />
+                        }}
+                    />
                 </div>
             </Loading>
             <DrawerComponent title='Chi tiết người dùng' isOpen={isOpenDrawer} onClose={() => setIsOpenDrawer(false)} width="60%">

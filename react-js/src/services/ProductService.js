@@ -2,7 +2,7 @@ import axios from "axios"
 import { axiosJWT } from "./UserService"
 import { getAllProduct, getProductType, getDetailsProduct, createProduct, updateProduct, deleteProduct, deleteManyProduct, getAllTypeProduct } from "../utils/apiRoutes"
 export const GetAllProduct = async (search, limit, page) => {
-    console.log('>>> check page', page)
+    // console.log('>>> check page', page)
     let res = {}
     if (search?.length > 0) {
         res = await axios.get(`${getAllProduct}?filter=name&filter=${search}&limit=${limit}&page=${page}`)

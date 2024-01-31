@@ -35,6 +35,7 @@ const SignInPage = () => {
                 navigate('/')
             }
             message.success('Login success')
+            dispatch(updateUser({ ...data, access_token: data?.access_token, refreshToken: data?.refresh_token }))
             localStorage.setItem('access_token', JSON.stringify(data?.access_token))
             localStorage.setItem('refresh_token', JSON.stringify(data?.refresh_token))
             if (data?.access_token) {

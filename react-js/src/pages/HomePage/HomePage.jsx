@@ -75,7 +75,7 @@ const HomePage = () => {
         },
     });
 
-    console.log('products', products)
+    // console.log('products', products)
 
     // set all product
     // useEffect(() => {

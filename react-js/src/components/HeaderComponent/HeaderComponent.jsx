@@ -34,6 +34,8 @@ const Header = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     const handleLogout = async () => {
         setLoading(true)
         await UserService.LogoutUser();
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('refresh_token')
         dispatch(resetUser())
         setLoading(false)
     }

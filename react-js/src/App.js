@@ -11,14 +11,17 @@ import Loading from "./components/LoadingComponent/Loading";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user)
+  console.log('user: ', user)
   const [isLoading, setIsLoading] = useState(false)
-  // console.log('>> check user: ', user)
+
   useEffect(() => {
     setIsLoading(true)
     const { storageData, decoded } = handleDecoded()
+
     if (decoded?.id) {
-      handleGetDetailUser(decoded?.id, storageData)
+      handleGetDetailUser(decoded.id, storageData)
     }
+
     setIsLoading(false)
   }, [])
   const handleDecoded = () => {
